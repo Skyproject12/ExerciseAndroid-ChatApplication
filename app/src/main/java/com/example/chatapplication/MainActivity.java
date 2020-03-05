@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     Button buttonLogin;
     Button buttonRegister;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +24,20 @@ public class MainActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(click->{
             startActivity(new Intent(MainActivity.this, RegisterActivity.class));
         });
+        buttonLogin.setOnClickListener(click->{
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        });
+        firebaseAuth= FirebaseAuth.getInstance();
+
+        checkUserStatus();
+
+    }
+
+    private void checkUserStatus(){
+        FirebaseUser user= firebaseAuth.getCurrentUser();
+        if(user!= null){
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            finish();
+        }
     }
 }
