@@ -1,4 +1,4 @@
-package com.example.chatapplication;
+package com.example.chatapplication.Ui.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -17,13 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Dashboard.DashboarActivity;
+import com.example.chatapplication.Ui.Register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 

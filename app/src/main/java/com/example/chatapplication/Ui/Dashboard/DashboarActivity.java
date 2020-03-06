@@ -1,4 +1,4 @@
-package com.example.chatapplication;
+package com.example.chatapplication.Ui.Dashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,6 +10,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.chatapplication.Ui.Home.HomeFragment;
+import com.example.chatapplication.Ui.Login.LoginActivity;
+import com.example.chatapplication.Ui.Main.MainActivity;
+import com.example.chatapplication.Ui.Profile.ProfileFragment;
+import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Users.UsersFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

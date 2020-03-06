@@ -1,4 +1,4 @@
-package com.example.chatapplication;
+package com.example.chatapplication.Ui.Home;
 
 
 import android.os.Bundle;
@@ -9,14 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chatapplication.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UsersFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    public UsersFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +27,7 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }

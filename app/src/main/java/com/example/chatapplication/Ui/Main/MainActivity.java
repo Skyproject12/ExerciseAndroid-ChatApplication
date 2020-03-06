@@ -1,4 +1,4 @@
-package com.example.chatapplication;
+package com.example.chatapplication.Ui.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.example.chatapplication.Ui.Dashboard.DashboarActivity;
+import com.example.chatapplication.Ui.Login.LoginActivity;
+import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Register.RegisterActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -1,4 +1,4 @@
-package com.example.chatapplication;
+package com.example.chatapplication.Ui.Profile;
 
 
 import android.Manifest;
@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chatapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
