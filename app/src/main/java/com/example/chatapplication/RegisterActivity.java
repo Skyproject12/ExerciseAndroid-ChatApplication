@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hasMap.put("name","");
                     hasMap.put("phone", "");
                     hasMap.put("image", "");
+                    hasMap.put("cover", "");
                     FirebaseDatabase database= FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference("Users");
                     reference.child(uid).setValue(hasMap);

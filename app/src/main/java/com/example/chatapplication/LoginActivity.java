@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
         String email = inputEmail.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
-        if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             inputEmail.setError("enter valid email");
             inputEmail.setFocusable(true);
             progressDialog.dismiss();
@@ -137,11 +137,11 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                     else{
+                        Toast.makeText(LoginActivity.this, "error"+task.getException(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }
             });
-            progressDialog.dismiss();
         }
 
     }
