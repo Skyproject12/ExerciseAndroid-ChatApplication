@@ -1,18 +1,25 @@
 package com.example.chatapplication.Ui.Users;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapplication.Data.ModelUser;
 import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Dashboard.DashboarActivity;
+import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +40,7 @@ public class UsersFragment extends Fragment {
     View view;
     AdapterUser adapterUser;
     ArrayList<ModelUser> userList;
+    FirebaseAuth firebaseAuth;
 
 
     public UsersFragment() {
@@ -48,6 +56,7 @@ public class UsersFragment extends Fragment {
         recyclerChat = view.findViewById(R.id.recycler_chat);
         recyclerChat.setHasFixedSize(true);
         recyclerChat.setLayoutManager(new LinearLayoutManager(getActivity()));
+        firebaseAuth= FirebaseAuth.getInstance();
         userList = new ArrayList<>();
         getAllUser();
         return view;
@@ -79,5 +88,29 @@ public class UsersFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id= item.getItemId();
+        if(id==R.id.action_loggout){
+            firebaseAuth.signOut();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
