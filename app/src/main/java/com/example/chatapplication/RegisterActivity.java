@@ -17,7 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -74,7 +77,18 @@ public class RegisterActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
                     FirebaseUser user= mAuth.getCurrentUser();
-                    startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
+                    String email = user.getEmail();
+                    String uid = user.getUid();
+                    HashMap<Object, String> hasMap = new HashMap<>();
+                    hasMap.put("email", email);
+                    hasMap.put("uid", uid);
+                    hasMap.put("name","");
+                    hasMap.put("phone", "");
+                    hasMap.put("image", "");
+                    FirebaseDatabase database= FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference("Users");
+                    reference.child(uid).setValue(hasMap);
+                    startActivity(new Intent(RegisterActivity.this, DashboarActivity.class));
                     finish();
                 }
                 else{

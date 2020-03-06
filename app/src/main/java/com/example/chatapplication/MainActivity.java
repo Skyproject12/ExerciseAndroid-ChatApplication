@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkUserStatus(){
         FirebaseUser user= firebaseAuth.getCurrentUser();
         if(user!= null){
-            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            startActivity(new Intent(MainActivity.this, DashboarActivity.class));
             finish();
         }
     }
