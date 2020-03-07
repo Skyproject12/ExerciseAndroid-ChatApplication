@@ -3,6 +3,7 @@ package com.example.chatapplication.Ui.Users;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,9 +59,9 @@ public class UsersFragment extends Fragment {
         recyclerChat = view.findViewById(R.id.recycler_chat);
         recyclerChat.setHasFixedSize(true);
         recyclerChat.setLayoutManager(new LinearLayoutManager(getActivity()));
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         userList = new ArrayList<>();
-        getAllUser();
+//        getAllUser();
         return view;
     }
 
@@ -69,7 +72,7 @@ public class UsersFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         ModelUser modelUser = ds.getValue(ModelUser.class);
                         // save value into model modelUser data
@@ -77,6 +80,7 @@ public class UsersFragment extends Fragment {
                             userList.add(modelUser);
                         }
                         adapterUser = new AdapterUser(userList);
+                        adapterUser.notifyDataSetChanged();
                         recyclerChat.setAdapter(adapterUser);
                     }
                 }
@@ -98,13 +102,68 @@ public class UsersFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (!TextUtils.isEmpty(query.trim())) {
+                    searchUser(query);
+                } else {
+//                    getAllUser();
+                    getAllUser();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!TextUtils.isEmpty(newText.trim())) {
+                    searchUser(newText);
+                } else {
+//                    getAllUser();
+                    getAllUser();
+                }
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void searchUser(String query) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userList.clear();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        ModelUser modelUser = ds.getValue(ModelUser.class);
+                        // save value into model modelUser data
+                        if (!modelUser.getUid().equals(user.getUid())) {
+                            if (modelUser.getName().toLowerCase().contains(query.toLowerCase()) || modelUser.getEmail().toLowerCase().contains(query.toLowerCase())) {
+                                userList.add(modelUser);
+                            }
+                        }
+                        adapterUser = new AdapterUser(userList);
+                        adapterUser.notifyDataSetChanged();
+                        recyclerChat.setAdapter(adapterUser);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id= item.getItemId();
-        if(id==R.id.action_loggout){
+        int id = item.getItemId();
+        if (id == R.id.action_loggout) {
             firebaseAuth.signOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
 
