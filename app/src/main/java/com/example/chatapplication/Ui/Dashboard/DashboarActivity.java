@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.chatapplication.Ui.Chats.ChatsFragment;
 import com.example.chatapplication.Ui.Home.HomeFragment;
 import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.example.chatapplication.Ui.Main.MainActivity;
@@ -81,6 +82,9 @@ public class DashboarActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_users:
                         fragment = new UsersFragment();
+                        break;
+                    case R.id.nav_chat:
+                        fragment = new ChatsFragment();
                         break;
 
                 }
