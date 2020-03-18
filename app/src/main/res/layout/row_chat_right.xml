@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/profileIv"
+            app:civ_border_color="@null"
+            android:visibility="gone"
+            android:src="@drawable/ic_default_white"/>
+
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02/03/2019"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_weight="1"
+            android:text="His Message"
+            android:background="@drawable/bg_sender"
+            android:padding="15dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:id="@+id/messageTv"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <TextView
+        android:text="delivered"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:id="@+id/isSeenTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
