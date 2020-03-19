@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ import com.example.chatapplication.notifications.Data;
 import com.example.chatapplication.notifications.Response;
 import com.example.chatapplication.notifications.Sender;
 import com.example.chatapplication.notifications.Token;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -68,6 +71,8 @@ public class ChatActivity extends AppCompatActivity {
     APIService apiService;
     // sset status notifikasi false
     boolean notify = false;
+    ImageView blockImage;
+    boolean isBlocked = false;
 
 
     @Override
@@ -95,6 +100,8 @@ public class ChatActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+        blockImage= findViewById(R.id.blockImage);
+
 
         // create api service
         apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
@@ -135,9 +142,99 @@ public class ChatActivity extends AppCompatActivity {
             messageEt.setText("");
         });
 
+        // block user
+        blockImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isBlocked){
+                    unBlockUser(hisUid);
+                }
+                else{
+                    blockUser(hisUid);
+                }
+            }
+        });
+
         readMessage();
+        checkIsBlocked();
         seenMessage();
 
+    }
+
+    private void checkIsBlocked() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("BlockedUser").orderByChild("uid").equalTo(hisUid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds: dataSnapshot.getChildren()){
+                            // check exist
+                            if(ds.exists()){
+                                // jika exis maka blocked == true
+                                blockImage.setImageResource(R.drawable.ic_blocked);
+                                isBlocked= true;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    // block user
+    private void blockUser(String hisUID) {
+        HashMap<String, String> hasMap = new HashMap<>();
+        hasMap.put("uid", hisUID);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(myUid).child("BlockedUser").child(hisUID).setValue(hasMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // block
+                Toast.makeText(ChatActivity.this, "block sukses", Toast.LENGTH_SHORT).show();
+                blockImage.setImageResource(R.drawable.ic_blocked);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    // unblock user
+    private void unBlockUser(String hisUID) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(myUid).child("BlockedUser").orderByChild("uid").equalTo(hisUID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    if(ds.exists()){
+                        ds.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // unbloc
+                                Toast.makeText(ChatActivity.this, "ublock success", Toast.LENGTH_SHORT).show();
+                                blockImage.setImageResource(R.drawable.ic_unblocked);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void seenMessage() {

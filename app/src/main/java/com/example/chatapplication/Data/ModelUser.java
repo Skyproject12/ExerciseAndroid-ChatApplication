@@ -7,18 +7,19 @@ public class ModelUser {
     String image;
     String cover;
     String uid;
+    boolean isBlocked= false;
 
     public ModelUser() {
-
     }
 
-    public ModelUser(String name, String email, String phone, String image, String cover, String uid) {
+    public ModelUser(String name, String email, String phone, String image, String cover, String uid, boolean isBlocked) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.image = image;
         this.cover = cover;
         this.uid = uid;
+        this.isBlocked = isBlocked;
     }
 
     public String getName() {
@@ -67,5 +68,13 @@ public class ModelUser {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
     }
 }
