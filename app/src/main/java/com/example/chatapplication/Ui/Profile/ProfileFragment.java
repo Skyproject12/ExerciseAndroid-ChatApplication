@@ -13,13 +13,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,11 +51,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.security.Key;
 import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
@@ -105,7 +100,7 @@ public class ProfileFragment extends Fragment {
         user= firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference= firebaseDatabase.getReference("Users");
-        nameTv= view.findViewById(R.id.nameTv);
+        nameTv= view.findViewById(R.id.name_groupTv);
         emailTv= view.findViewById(R.id.emailTv);
         phoneTv= view.findViewById(R.id.phoneTv);
         avatarIv= view.findViewById(R.id.avatarIv);

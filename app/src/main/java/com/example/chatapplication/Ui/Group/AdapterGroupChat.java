@@ -1,6 +1,7 @@
 package com.example.chatapplication.Ui.Group;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,11 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // intent to detail adapter
+                Intent intent= new Intent(context, GroupChatActivity.class);
+                // send the groupId
+                intent.putExtra("groupId", groupId);
+                context.startActivity(intent);
 
             }
         });
@@ -72,7 +78,7 @@ public class AdapterGroupChat extends RecyclerView.Adapter<AdapterGroupChat.View
             super(itemView);
             groupIconIv = itemView.findViewById(R.id.groupImage);
             groupTitleTv= itemView.findViewById(R.id.groupTitle);
-            nameTv = itemView.findViewById(R.id.nameTv);
+            nameTv = itemView.findViewById(R.id.name_groupTv);
             messageTv= itemView.findViewById(R.id.messageTv);
             timeTv= itemView.findViewById(R.id.timeTv);
 

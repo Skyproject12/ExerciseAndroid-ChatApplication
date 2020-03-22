@@ -43,7 +43,7 @@
                     android:background="#77000000">
 
                     <TextView
-                        android:id="@+id/nameTv"
+                        android:id="@+id/name_groupTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
