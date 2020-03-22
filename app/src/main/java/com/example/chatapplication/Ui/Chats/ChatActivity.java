@@ -69,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
     List<ModelChat> chatList;
     AdapterChat adapterChat;
     APIService apiService;
-    // sset status notifikasi false
+    // set status notifikasi false
     boolean notify = false;
     ImageView blockImage;
     boolean isBlocked = false;

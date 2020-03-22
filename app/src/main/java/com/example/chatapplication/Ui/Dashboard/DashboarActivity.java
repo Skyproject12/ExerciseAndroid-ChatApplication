@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.PopupMenu;
 
 import com.example.chatapplication.Ui.Chats.ChatsFragment;
+import com.example.chatapplication.Ui.Group.GroupChatFragment;
 import com.example.chatapplication.Ui.Home.HomeFragment;
 import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.example.chatapplication.Ui.Main.MainActivity;
@@ -114,6 +117,9 @@ public class DashboarActivity extends AppCompatActivity {
                     case R.id.nav_chat:
                         fragment = new ChatsFragment();
                         break;
+                    case R.id.nav_more:
+                        fragment = new GroupChatFragment();
+                        break;
 
                 }
                 getSupportFragmentManager()
@@ -124,6 +130,26 @@ public class DashboarActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void showMoreOptions(){
+//        PopupMenu popupMenu = new PopupMenu(this, mBottomNavigationView, Gravity.END);
+//        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Notifications");
+//        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Group Chats");
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                int id = item.getItemId();
+//                if(id==0){
+//
+//                }
+//                else if(id==1){
+//
+//                }
+//                return false;
+//            }
+//        });
+//    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         getSupportFragmentManager().putFragment(outState, KEY_FRAGMENT, fragment);

@@ -45,7 +45,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     private void sentOAndAboveNotification(RemoteMessage remoteMessage){
         String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
-        String title = remoteMessage.getData().get("body");
+        String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();

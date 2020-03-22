@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatapplication.Data.ModelUser;
 import com.example.chatapplication.R;
 import com.example.chatapplication.Ui.Dashboard.DashboarActivity;
+import com.example.chatapplication.Ui.Group.GroupCreateActivity;
 import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -165,6 +166,9 @@ public class UsersFragment extends Fragment {
             firebaseAuth.signOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
 
+        }
+        else if(id==R.id.action_create_group){
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

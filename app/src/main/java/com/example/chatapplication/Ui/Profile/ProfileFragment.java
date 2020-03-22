@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Group.GroupCreateActivity;
 import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -89,7 +90,6 @@ public class ProfileFragment extends Fragment {
     String profileOrCoverPhoto;
     StorageReference storageReference;
     String storagePath = "Users_Profile_Cover_Imgs";
-
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -478,6 +478,9 @@ public class ProfileFragment extends Fragment {
             firebaseAuth.signOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
 
+        }
+        else if(id==R.id.action_create_group){
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

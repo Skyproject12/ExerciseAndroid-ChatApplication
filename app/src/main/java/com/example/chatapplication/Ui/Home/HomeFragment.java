@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chatapplication.R;
+import com.example.chatapplication.Ui.Group.GroupCreateActivity;
 import com.example.chatapplication.Ui.Login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
+        // hide the options menu
         firebaseAuth= FirebaseAuth.getInstance();
         return view;
     }
@@ -61,6 +63,9 @@ public class HomeFragment extends Fragment {
             firebaseAuth.signOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
 
+        }
+        else if(id==R.id.action_create_group){
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

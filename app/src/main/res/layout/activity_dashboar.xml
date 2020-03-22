@@ -20,6 +20,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
+        app:labelVisibilityMode="labeled"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="#FFFFFF"
