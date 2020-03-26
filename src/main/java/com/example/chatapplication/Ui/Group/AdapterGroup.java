@@ -5,6 +5,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,13 +59,24 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
         String message = model.getMessage();
         String timestimp = model.getTimestamp();
         String senderUid = model.getSender();
+        String type = model.getType();
+
         // change time stamp to format dateTime
         Calendar cal = Calendar.getInstance(Locale.getDefault());
         cal.setTimeInMillis(Long.parseLong(timestimp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa",cal).toString();
         // settext message
-        holder.messageTv.setText(message);
         holder.timeTv.setText(dateTime);
+        // when message type is text
+        if (type.equals("text")) {
+            holder.messageTv.setVisibility(View.GONE);
+            holder.message.setVisibility(View.VISIBLE);
+            holder.message.setText(message);
+        } else {
+            holder.message.setVisibility(View.GONE);
+            holder.messageTv.setVisibility(View.VISIBLE);
+            Picasso.get().load(message).placeholder(R.drawable.ic_default_white).into(holder.messageTv);
+        }
 
         setUserName(model, holder);
     }
@@ -109,14 +122,16 @@ public class AdapterGroup extends RecyclerView.Adapter<AdapterGroup.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView nameTv;
-        private TextView messageTv;
+        private TextView message;
         private TextView timeTv;
+        private ImageView messageTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.nameTv);
-            messageTv = itemView.findViewById(R.id.messageTv);
+            message = itemView.findViewById(R.id.messageTv);
             timeTv= itemView.findViewById(R.id.timeTv);
+            messageTv = itemView.findViewById(R.id.messageIv);
 
         }
     }
