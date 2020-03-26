@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:contentPadding="3dp"
+    android:layout_marginTop="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/groupImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_group_primary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:id="@+id/groupTitle"
+            android:layout_marginLeft="4dp"
+            android:text="Group Title"
+            android:layout_toEndOf="@id/groupImage"
+            android:layout_toRightOf="@id/groupImage"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/groupImage"
+            android:layout_below="@+id/groupTitle"
+            android:id="@+id/name_groupTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/groupImage"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:text="Sender Name"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageTv"
+            android:layout_below="@id/groupTitle"
+            android:layout_toEndOf="@id/name_groupTv"
+            android:textColor="#968E8E"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:text="The message"
+            android:layout_toRightOf="@id/name_groupTv" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeTv"
+            android:layout_below="@id/name_groupTv"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorBlack"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:text="The message"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:singleLine="true"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
